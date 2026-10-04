@@ -1,9 +1,3 @@
-/*
-  base.css
-  Gaya yang dipakai semua halaman. Konsep desain: kertas buku tulis kotak-kotak,
-  tinta pulpen biru, dan stabilo kuning.
-*/
-
 :root {
   --paper: #fdfdfe;
   --grid: #dde7f5;
