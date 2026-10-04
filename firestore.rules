@@ -1,7 +1,4 @@
 rules_version = '2';
-
-// Salin isi file ini ke Firebase Console > Firestore Database > Rules > Publish.
-// Artinya: setiap pengguna HANYA boleh membaca dan menulis dokumen miliknya sendiri.
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId} {
