@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pomodoro - TARGET</title>
+  <meta name="description" content="Timer Pomodoro untuk fokus mengerjakan tugas kuliah.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/pomodoro.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html"><span>TARGET</span></a>
+      <nav aria-label="Navigasi utama">
+        <ul class="nav-links">
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="tugas.html">Tugas</a></li>
+          <li><a href="pomodoro.html" aria-current="page">Pomodoro</a></li>
+        </ul>
+      </nav>
+      <div id="auth-box" class="auth-box"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Pomodoro</h1>
+      <p>Fokus penuh selama satu sesi, lalu istirahat. Setelah empat sesi fokus, ambil istirahat panjang.</p>
+    </div>
+
+    <div class="pomo">
+      <section class="timer-panel" aria-label="Timer">
+        <div class="modes" role="group" aria-label="Pilih mode">
+          <button class="chip" data-mode="focus" aria-pressed="true">Fokus</button>
+          <button class="chip" data-mode="short" aria-pressed="false">Istirahat</button>
+          <button class="chip" data-mode="long" aria-pressed="false">Istirahat panjang</button>
+        </div>
+
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="ring-bg" cx="100" cy="100" r="88"/>
+            <circle class="ring-fg" id="ring" cx="100" cy="100" r="88"/>
+          </svg>
+          <div class="time" id="time" role="timer" aria-live="off">25:00</div>
+        </div>
+
+        <p id="status" class="status" aria-live="polite">Siap mulai. Pilih tugas, lalu tekan Mulai.</p>
+
+        <div class="controls">
+          <button class="btn btn-primary" id="start-btn">Mulai</button>
+          <button class="btn" id="reset-btn">Reset</button>
+          <button class="btn" id="skip-btn">Lewati</button>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="box">
+          <h2>Sedang dikerjakan</h2>
+          <label class="sr-only" for="task-select">Pilih tugas</label>
+          <select id="task-select"></select>
+          <p class="hint"><a href="tugas.html">Tambah tugas baru</a></p>
+        </section>
+
+        <section class="box">
+          <h2>Hari ini</h2>
+          <p class="big"><strong id="today-count">0</strong> sesi</p>
+          <p class="big"><strong id="today-minutes">0</strong> menit fokus</p>
+        </section>
+
+        <section class="box">
+          <h2>Atur durasi (menit)</h2>
+          <div class="settings">
+            <div><label for="set-focus">Fokus</label><input type="number" id="set-focus" min="1" max="120"></div>
+            <div><label for="set-short">Istirahat</label><input type="number" id="set-short" min="1" max="60"></div>
+            <div><label for="set-long">Panjang</label><input type="number" id="set-long" min="1" max="60"></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">TARGET. Sesi fokus tersimpan di browser kamu.</div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/pomodoro.js"></script>
+</body>
+</html>

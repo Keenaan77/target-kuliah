@@ -1,0 +1,118 @@
+/*
+  base.css
+  Gaya yang dipakai semua halaman. Konsep desain: kertas buku tulis kotak-kotak,
+  tinta pulpen biru, dan stabilo kuning.
+*/
+
+:root {
+  --paper: #fdfdfe;
+  --grid: #dde7f5;
+  --ink: #101935;
+  --muted: #566080;
+  --line: #cfd8ea;
+  --pen: #1f3fd1;
+  --pen-dark: #1830a8;
+  --hl: #ffe14d;
+  --margin: #e0525a;
+  --ok: #14804f;
+  --warn: #a85d00;
+  --font-head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.55;
+  background-color: var(--paper);
+  /* Dua gradien garis tipis = pola kertas kotak-kotak */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+
+a { color: var(--pen); }
+
+.container { width: min(1080px, 100% - 32px); margin-inline: auto; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- Navigasi ---------- */
+.nav {
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  position: sticky; top: 0; z-index: 10;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
+.logo { font-family: var(--font-head); font-weight: 800; font-size: 1.4rem; color: var(--ink); text-decoration: none; }
+.logo span { background: var(--hl); padding: 0 6px; }
+.nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  display: block; padding: 8px 12px; color: var(--ink); text-decoration: none; font-weight: 500;
+  border-bottom: 3px solid transparent;
+}
+.nav-links a:hover { border-bottom-color: var(--line); }
+.nav-links a[aria-current="page"] { border-bottom-color: var(--pen); font-weight: 700; }
+
+/* ---------- Tombol ---------- */
+.btn {
+  display: inline-block; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none;
+  padding: 11px 20px; border: 2px solid var(--ink); background: #fff; color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .1s, box-shadow .1s;
+}
+.btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+.btn-primary { background: var(--pen); color: #fff; }
+.btn-hl { background: var(--hl); }
+
+.btn-sm { padding: 6px 12px; font-size: .88rem; box-shadow: 2px 2px 0 var(--ink); }
+
+/* ---------- Area login ---------- */
+.auth-box { display: flex; align-items: center; gap: 10px; }
+.auth-photo { width: 30px; height: 30px; border: 2px solid var(--ink); object-fit: cover; }
+.auth-name { font-weight: 700; font-size: .92rem; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.auth-note { font-size: .82rem; color: var(--muted); border: 1.5px dashed var(--muted); padding: 2px 8px; }
+
+/* ---------- Form ---------- */
+label { display: block; margin: 14px 0 6px; font-weight: 700; font-size: .92rem; }
+input[type="text"], input[type="date"], input[type="number"], select {
+  width: 100%; padding: 10px 12px; font: inherit; color: var(--ink);
+  background: #fff; border: 2px solid var(--ink); border-radius: 0;
+}
+
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
+
+.chip {
+  font: inherit; font-size: .88rem; padding: 6px 14px; cursor: pointer;
+  background: #fff; color: var(--ink); border: 2px solid var(--ink);
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; }
+
+.page-title { padding: 36px 0 20px; }
+.page-title h1 { font-size: clamp(2rem, 6vw, 3rem); }
+.page-title p { margin: 8px 0 0; color: var(--muted); max-width: 52ch; }
+
+.site-footer { border-top: 2px solid var(--ink); background: var(--paper); margin-top: 64px; padding: 20px 0; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 560px) {
+  .nav-inner { flex-direction: column; align-items: flex-start; padding: 8px 0 0; gap: 0; }
+  .nav-links a { padding: 8px 10px; }
+  .auth-box { padding-bottom: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}

@@ -1,0 +1,60 @@
+/* landing.css - gaya khusus halaman beranda */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 64px 0 56px;
+}
+.hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.8rem); font-weight: 800; }
+.hero p { font-size: 1.1rem; max-width: 50ch; margin: 20px 0 0; color: var(--muted); }
+.hero .tagline { margin: 18px 0 0; font-size: .98rem; color: var(--ink); border-left: 4px solid var(--hl); padding-left: 12px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+/* Lembar catatan bergaris dengan garis margin merah */
+.sheet {
+  position: relative;
+  background-color: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 20px 16px 64px;
+  transform: rotate(-1.2deg);
+  background-image: repeating-linear-gradient(transparent 0, transparent 35px, var(--line) 35px, var(--line) 36px);
+  background-position: 0 52px;
+}
+.sheet::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 44px; width: 2px; background: var(--margin);
+}
+.sheet h2 { font-size: 1.3rem; line-height: 36px; margin-bottom: 16px; }
+.sheet-list { list-style: none; margin: 0; padding: 0; }
+.sheet-list li { display: flex; align-items: center; gap: 10px; min-height: 36px; line-height: 36px; font-size: .98rem; }
+.sheet-list .box {
+  flex: none; width: 16px; height: 16px; border: 2px solid var(--ink); background: #fff;
+}
+.sheet-list .t { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sheet-list .d { flex: none; font-size: .82rem; color: var(--muted); }
+.sheet-list .d.late { color: var(--margin); font-weight: 700; }
+.sheet-note { margin: 8px 0 0; line-height: 36px; font-size: .85rem; color: var(--muted); }
+
+.stats { background: var(--hl); border-block: 2px solid var(--ink); }
+.stats-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding: 16px 0; }
+.stats p { margin: 0; }
+.stats strong { font-family: var(--font-head); font-size: 1.8rem; margin-right: 6px; }
+
+.features { padding-top: 56px; }
+.feature {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 48px; align-items: start;
+  padding: 32px 0; border-top: 2px solid var(--ink);
+}
+.feature:first-child { border-top: 0; }
+.feature h2 { font-size: clamp(1.4rem, 3vw, 2rem); grid-row: span 2; }
+.feature p { margin: 0; max-width: 56ch; }
+.feature a { font-weight: 700; }
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .sheet { transform: none; }
+  .feature { grid-template-columns: 1fr; }
+  .feature h2 { grid-row: auto; }
+}

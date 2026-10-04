@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tugas - TARGET</title>
+  <meta name="description" content="Kelola tugas kuliah: tambah, edit, hapus, filter, urutkan, dan susun dengan matriks Eisenhower.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/tugas.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html"><span>TARGET</span></a>
+      <nav aria-label="Navigasi utama">
+        <ul class="nav-links">
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="tugas.html" aria-current="page">Tugas</a></li>
+          <li><a href="pomodoro.html">Pomodoro</a></li>
+        </ul>
+      </nav>
+      <div id="auth-box" class="auth-box"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Tugas</h1>
+      <p id="summary" aria-live="polite"></p>
+    </div>
+
+    <div class="layout">
+      <!-- Form tambah / edit -->
+      <section class="form-panel" aria-labelledby="form-title">
+        <h2 id="form-title">Tambah tugas</h2>
+        <form id="task-form" novalidate>
+          <input type="hidden" id="task-id">
+
+          <label for="title">Nama tugas</label>
+          <input type="text" id="title" maxlength="80" placeholder="Laporan praktikum Basis Data" required>
+
+          <label for="course">Mata kuliah</label>
+          <input type="text" id="course" maxlength="40" placeholder="Basis Data">
+
+          <label for="deadline">Deadline</label>
+          <input type="date" id="deadline" required>
+
+          <fieldset class="priority">
+            <legend>Prioritas (untuk matriks Eisenhower)</legend>
+            <label class="check"><input type="checkbox" id="important"> Penting</label>
+            <label class="check"><input type="checkbox" id="urgent"> Mendesak</label>
+          </fieldset>
+
+          <p id="error" class="error" role="alert" hidden></p>
+
+          <div class="form-actions">
+            <button type="submit" id="submit-btn" class="btn btn-primary">Tambah tugas</button>
+            <button type="button" id="cancel-btn" class="btn" hidden>Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Daftar / matriks -->
+      <section aria-labelledby="list-title">
+        <h2 id="list-title" class="sr-only">Daftar tugas</h2>
+
+        <div class="toolbar">
+          <div class="group" role="group" aria-label="Filter tugas">
+            <button class="chip" data-filter="all" aria-pressed="true">Semua</button>
+            <button class="chip" data-filter="active" aria-pressed="false">Belum selesai</button>
+            <button class="chip" data-filter="done" aria-pressed="false">Selesai</button>
+          </div>
+          <div class="group">
+            <label class="sr-only" for="sort">Urutkan</label>
+            <select id="sort">
+              <option value="asc">Deadline terdekat</option>
+              <option value="desc">Deadline terjauh</option>
+            </select>
+          </div>
+          <div class="group" role="group" aria-label="Tampilan">
+            <button class="chip" data-view="list" aria-pressed="true">Daftar</button>
+            <button class="chip" data-view="matrix" aria-pressed="false">Eisenhower</button>
+          </div>
+        </div>
+
+        <ul id="task-list" class="task-list"></ul>
+
+        <div id="matrix" class="matrix" hidden></div>
+
+        <p id="empty" class="empty" hidden></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">TARGET. Data tersimpan di browser kamu.</div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/tugas.js"></script>
+</body>
+</html>

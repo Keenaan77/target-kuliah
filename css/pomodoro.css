@@ -1,0 +1,50 @@
+/* pomodoro.css - gaya halaman pomodoro */
+
+.pomo { display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; }
+
+.timer-panel {
+  background: #fff; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  padding: 28px 20px 32px; text-align: center;
+}
+.modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+
+.ring-wrap { position: relative; width: min(300px, 80vw); aspect-ratio: 1; margin: 28px auto 12px; }
+.ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 10; }
+.ring-bg { stroke: var(--grid); }
+.ring-fg {
+  stroke: var(--pen);
+  stroke-linecap: butt;
+  stroke-dasharray: 553;      /* keliling lingkaran: 2 x 3.14 x 88 */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset .4s linear, stroke .2s;
+}
+body[data-mode="short"] .ring-fg,
+body[data-mode="long"] .ring-fg { stroke: var(--ok); }
+
+.time {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-head); font-weight: 800; font-size: clamp(2.8rem, 12vw, 4.2rem);
+  font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+}
+
+.status { min-height: 1.6em; margin: 0 0 20px; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+.side { display: grid; gap: 20px; }
+.box { background: #fff; border: 2px solid var(--ink); padding: 16px; }
+.box h2 { font-size: 1.05rem; margin-bottom: 12px; }
+.hint { margin: 10px 0 0; font-size: .88rem; }
+.big { margin: 0 0 4px; }
+.big strong { font-family: var(--font-head); font-size: 2rem; margin-right: 4px; }
+
+.settings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.settings label { margin: 0 0 4px; font-size: .8rem; }
+.settings input { padding: 8px; }
+
+@media (max-width: 860px) {
+  .pomo { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring-fg { transition: none; }
+}

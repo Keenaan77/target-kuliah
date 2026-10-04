@@ -1,0 +1,78 @@
+/* tugas.css - gaya halaman tugas */
+
+.layout { display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
+
+.form-panel {
+  background: #fff; border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+  padding: 20px; position: sticky; top: 80px;
+}
+.form-panel h2 { font-size: 1.3rem; }
+.form-panel label:first-of-type { margin-top: 16px; }
+
+.priority { border: 2px solid var(--ink); margin: 18px 0 0; padding: 4px 12px 10px; }
+.priority legend { font-size: .85rem; font-weight: 700; padding: 0 6px; }
+.check { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-weight: 500; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--pen); }
+
+.error { color: var(--margin); font-weight: 700; font-size: .9rem; margin: 14px 0 0; }
+.form-actions { display: flex; gap: 12px; margin-top: 18px; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-bottom: 16px; }
+.group { display: flex; gap: 6px; }
+.toolbar select { width: auto; padding: 6px 10px; }
+
+/* ----- Daftar ----- */
+.task-list { list-style: none; margin: 0; padding: 0; background: #fff; border: 2px solid var(--ink); }
+.task-list:empty { display: none; }
+
+.task {
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+  border-top: 1px solid var(--line);
+}
+.task:first-child { border-top: 0; }
+.task input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; flex: none; accent-color: var(--ok); cursor: pointer; }
+.task-body { flex: 1; min-width: 0; }
+.task-title { font-weight: 700; overflow-wrap: anywhere; }
+.task-meta { font-size: .85rem; color: var(--muted); margin-top: 2px; }
+.task.done .task-title { text-decoration: line-through; color: var(--muted); }
+
+.tag {
+  display: inline-block; margin: 0 4px 0 0; padding: 0 8px; font-size: .75rem; font-weight: 700;
+  border: 1.5px solid var(--ink); background: #fff; color: var(--ink);
+}
+.tag-late { background: var(--margin); border-color: var(--margin); color: #fff; }
+.tag-soon { background: var(--hl); }
+.tag-imp { background: var(--pen); border-color: var(--pen); color: #fff; }
+
+.task-actions { display: flex; gap: 2px; flex: none; }
+.link-btn {
+  font: inherit; font-size: .85rem; font-weight: 700; padding: 4px 8px; background: none; border: 0;
+  color: var(--pen); cursor: pointer; text-decoration: underline;
+}
+.link-btn.danger { color: var(--margin); }
+
+.empty { text-align: center; color: var(--muted); padding: 32px 0; margin: 0; }
+
+/* ----- Matriks Eisenhower ----- */
+.matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.quad { background: #fff; border: 2px solid var(--ink); min-height: 170px; }
+.quad header { padding: 10px 14px; border-bottom: 2px solid var(--ink); }
+.quad h3 { font-size: 1.05rem; }
+.quad header p { margin: 2px 0 0; font-size: .8rem; color: var(--ink); opacity: .75; }
+.quad-do header { background: var(--margin); color: #fff; }
+.quad-do header p { color: #fff; opacity: .9; }
+.quad-plan header { background: var(--hl); }
+.quad-fast header { background: #bcd0ff; }
+.quad-skip header { background: #e6e9f2; }
+.quad .task { padding: 10px 14px; }
+.quad .none { margin: 0; padding: 14px; font-size: .85rem; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .form-panel { position: static; }
+}
+@media (max-width: 560px) {
+  .matrix { grid-template-columns: 1fr; }
+  .task { flex-wrap: wrap; }
+  .task-actions { width: 100%; padding-left: 34px; }
+}
