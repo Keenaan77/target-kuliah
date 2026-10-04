@@ -110,6 +110,7 @@ input[type="text"], input[type="date"], input[type="number"], select {
   .nav-inner { flex-direction: column; align-items: flex-start; padding: 8px 0 0; gap: 0; }
   .nav-links a { padding: 8px 10px; }
   .auth-box { padding-bottom: 8px; }
+  .hero h1 { font-size: 2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
