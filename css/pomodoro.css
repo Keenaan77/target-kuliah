@@ -3,7 +3,7 @@
 .pomo { display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; }
 
 .timer-panel {
-  background: #fff; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+  background: var(--surface); border: 2px solid var(--edge); box-shadow: 6px 6px 0 var(--shadow);
   padding: 28px 20px 32px; text-align: center;
 }
 .modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
@@ -32,7 +32,7 @@ body[data-mode="long"] .ring-fg { stroke: var(--ok); }
 .controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 
 .side { display: grid; gap: 20px; }
-.box { background: #fff; border: 2px solid var(--ink); padding: 16px; }
+.box { background: var(--surface); border: 2px solid var(--edge); padding: 16px; }
 .box h2 { font-size: 1.05rem; margin-bottom: 12px; }
 .hint { margin: 10px 0 0; font-size: .88rem; }
 .big { margin: 0 0 4px; }

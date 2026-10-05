@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Statistik - TARGET</title>
+  <meta name="description" content="Lihat waktu fokus 7 hari terakhir, streak belajar, dan pembagian waktu per mata kuliah.">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#004aad">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <script src="/js/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/statistik.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="/"><span>TARGET</span></a>
+      <nav aria-label="Navigasi utama">
+        <ul class="nav-links">
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tugas">Tugas</a></li>
+          <li><a href="/pomodoro">Pomodoro</a></li>
+          <li><a href="/statistik" aria-current="page">Statistik</a></li>
+        </ul>
+      </nav>
+      <div class="nav-tools"><button id="theme-btn" class="btn btn-sm" type="button">Gelap</button><div id="auth-box" class="auth-box"></div></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Statistik</h1>
+      <p>Waktu fokus 7 hari terakhir. Data berasal dari sesi Pomodoro yang selesai.</p>
+    </div>
+
+    <section class="summary" aria-label="Ringkasan">
+      <div class="sum-box streak"><strong id="st-streak">0</strong><span>hari beruntun</span></div>
+      <div class="sum-box"><strong id="st-total">0</strong><span>menit minggu ini</span></div>
+      <div class="sum-box"><strong id="st-avg">0</strong><span>menit rata-rata per hari</span></div>
+      <div class="sum-box"><strong id="st-count">0</strong><span>sesi minggu ini</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="chart-title">
+      <h2 id="chart-title">Menit fokus per hari</h2>
+      <div id="bars" class="bars"></div>
+      <p id="chart-empty" class="empty-stat" hidden>Belum ada sesi fokus. <a href="/pomodoro">Mulai satu sesi Pomodoro</a> dan grafiknya akan terisi.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="course-title">
+      <h2 id="course-title">Per mata kuliah</h2>
+      <ul id="courses" class="course-list"></ul>
+      <p id="course-empty" class="empty-stat" hidden>Belum ada data. Pilih tugas di halaman Pomodoro sebelum mulai, supaya waktunya tercatat ke mata kuliah itu.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><span>TARGET. Statistik dihitung dari data di browser dan akunmu.</span> <button id="install-btn" class="btn btn-sm" type="button" hidden>Pasang aplikasi</button></div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/reminder.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/statistik.js"></script>
+</body>
+</html>

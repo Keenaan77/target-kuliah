@@ -15,9 +15,9 @@
 /* Lembar catatan bergaris dengan garis margin merah */
 .sheet {
   position: relative;
-  background-color: #fff;
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
+  background-color: var(--surface);
+  border: 2px solid var(--edge);
+  box-shadow: 6px 6px 0 var(--shadow);
   padding: 20px 20px 16px 64px;
   transform: none;
   background-image: repeating-linear-gradient(transparent 0, transparent 35px, var(--line) 35px, var(--line) 36px);
@@ -30,14 +30,14 @@
 .sheet-list { list-style: none; margin: 0; padding: 0; }
 .sheet-list li { display: flex; align-items: center; gap: 10px; min-height: 36px; line-height: 36px; font-size: .98rem; }
 .sheet-list .box {
-  flex: none; width: 16px; height: 16px; border: 2px solid var(--ink); background: #fff;
+  flex: none; width: 16px; height: 16px; border: 2px solid var(--edge); background: var(--surface);
 }
 .sheet-list .t { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sheet-list .d { flex: none; font-size: .82rem; color: var(--muted); }
 .sheet-list .d.late { color: var(--margin); font-weight: 700; }
 .sheet-note { margin: 8px 0 0; line-height: 36px; font-size: .85rem; color: var(--muted); }
 
-.stats { background: var(--hl); border-block: 2px solid var(--ink); }
+.stats { background: var(--hl); color: #101935; border-block: 2px solid var(--edge); }
 .stats-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding: 16px 0; }
 .stats p { margin: 0; }
 .stats strong { font-family: var(--font-head); font-size: 1.8rem; margin-right: 6px; }
@@ -45,7 +45,7 @@
 .features { padding-top: 56px; }
 .feature {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px 48px; align-items: start;
-  padding: 32px 0; border-top: 2px solid var(--ink);
+  padding: 32px 0; border-top: 2px solid var(--edge);
 }
 .feature:first-child { border-top: 0; }
 .feature h2 { font-size: clamp(1.4rem, 3vw, 2rem); grid-row: span 2; }
@@ -97,3 +97,17 @@
   .hero-actions .btn { width: 100%; text-align: center; max-width: 100%; margin: 0; }
   .feature { grid-template-columns: 1fr; }
   .feature h2 { grid-row: auto; }}
+
+/* ---------- Ujian terdekat ---------- */
+.exams { padding-top: 48px; }
+.exams h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 16px; }
+.exam-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 2px solid var(--edge); }
+.exam-list:empty { display: none; }
+.exam-list li { display: flex; align-items: center; gap: 20px; padding: 14px 18px; border-top: 1px solid var(--line); }
+.exam-list li:first-child { border-top: 0; }
+.exam-days { flex: none; min-width: 84px; font-family: var(--font-head); font-weight: 800; font-size: 2.4rem; line-height: 1; }
+.exam-days small { display: block; margin-top: 4px; font-family: var(--font-body); font-size: .75rem; font-weight: 500; color: var(--muted); }
+.exam-days.soon { color: var(--margin); }
+.exam-info .t { font-weight: 700; overflow-wrap: anywhere; }
+.exam-info .m { font-size: .85rem; color: var(--muted); }
+.exam-empty { margin: 0; padding: 18px; border: 2px dashed var(--edge); color: var(--muted); }

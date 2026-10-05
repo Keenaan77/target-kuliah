@@ -3,13 +3,13 @@
 .layout { display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
 
 .form-panel {
-  background: #fff; border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+  background: var(--surface); border: 2px solid var(--edge); box-shadow: 5px 5px 0 var(--shadow);
   padding: 20px; position: sticky; top: 80px;
 }
 .form-panel h2 { font-size: 1.3rem; }
 .form-panel label:first-of-type { margin-top: 16px; }
 
-.priority { border: 2px solid var(--ink); margin: 18px 0 0; padding: 4px 12px 10px; }
+.priority { border: 2px solid var(--edge); margin: 18px 0 0; padding: 4px 12px 10px; }
 .priority legend { font-size: .85rem; font-weight: 700; padding: 0 6px; }
 .check { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-weight: 500; cursor: pointer; }
 .check input { width: 18px; height: 18px; accent-color: var(--pen); }
@@ -22,7 +22,7 @@
 .toolbar select { width: auto; padding: 6px 10px; }
 
 /* ----- Daftar ----- */
-.task-list { list-style: none; margin: 0; padding: 0; background: #fff; border: 2px solid var(--ink); }
+.task-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 2px solid var(--edge); }
 .task-list:empty { display: none; }
 
 .task {
@@ -38,11 +38,12 @@
 
 .tag {
   display: inline-block; margin: 0 4px 0 0; padding: 0 8px; font-size: .75rem; font-weight: 700;
-  border: 1.5px solid var(--ink); background: #fff; color: var(--ink);
+  border: 1.5px solid var(--edge); background: var(--surface); color: var(--ink);
 }
-.tag-late { background: var(--margin); border-color: var(--margin); color: #fff; }
-.tag-soon { background: var(--hl); }
-.tag-imp { background: var(--pen); border-color: var(--pen); color: #fff; }
+.tag-late { background: var(--margin); border-color: var(--margin); color: var(--on-accent); }
+.tag-soon { background: var(--hl); color: #101935; border-color: #101935; }
+.tag-exam { background: var(--ink); border-color: var(--ink); color: var(--on-accent); }
+.tag-imp { background: var(--pen); border-color: var(--pen); color: var(--on-accent); }
 
 .task-actions { display: flex; gap: 2px; flex: none; }
 .link-btn {
@@ -55,15 +56,14 @@
 
 /* ----- Matriks Eisenhower ----- */
 .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.quad { background: #fff; border: 2px solid var(--ink); min-height: 170px; }
-.quad header { padding: 10px 14px; border-bottom: 2px solid var(--ink); }
+.quad { background: var(--surface); border: 2px solid var(--edge); min-height: 170px; }
+.quad header { padding: 10px 14px; border-bottom: 2px solid var(--edge); }
 .quad h3 { font-size: 1.05rem; }
-.quad header p { margin: 2px 0 0; font-size: .8rem; color: var(--ink); opacity: .75; }
-.quad-do header { background: var(--margin); color: #fff; }
-.quad-do header p { color: #fff; opacity: .9; }
-.quad-plan header { background: var(--hl); }
-.quad-fast header { background: #bcd0ff; }
-.quad-skip header { background: #e6e9f2; }
+.quad header p { margin: 2px 0 0; font-size: .8rem; color: inherit; opacity: .85; }
+.quad-do header { background: var(--margin); color: var(--on-accent); }
+.quad-plan header { background: var(--hl); color: #101935; }
+.quad-fast header { background: var(--q-fast); }
+.quad-skip header { background: var(--q-skip); }
 .quad .task { padding: 10px 14px; }
 .quad .none { margin: 0; padding: 14px; font-size: .85rem; color: var(--muted); }
 
@@ -76,3 +76,6 @@
   .task { flex-wrap: wrap; }
   .task-actions { width: 100%; padding-left: 34px; }
 }
+
+.reminder { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 14px; }
+.reminder-note { margin: 0; font-size: .85rem; color: var(--muted); max-width: 60ch; }

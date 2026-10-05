@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tugas - TARGET</title>
   <meta name="description" content="Kelola tugas kuliah: tambah, edit, hapus, filter, urutkan, dan susun dengan matriks Eisenhower.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#004aad">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <script src="/js/theme.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -21,9 +26,10 @@
           <li><a href="/">Beranda</a></li>
           <li><a href="/tugas" aria-current="page">Tugas</a></li>
           <li><a href="/pomodoro">Pomodoro</a></li>
+          <li><a href="/statistik">Statistik</a></li>
         </ul>
       </nav>
-      <div id="auth-box" class="auth-box"></div>
+      <div class="nav-tools"><button id="theme-btn" class="btn btn-sm" type="button">Gelap</button><div id="auth-box" class="auth-box"></div></div>
     </div>
   </header>
 
@@ -31,6 +37,10 @@
     <div class="page-title">
       <h1>Tugas</h1>
       <p id="summary" aria-live="polite"></p>
+      <div class="reminder">
+        <button id="reminder-btn" class="btn btn-sm" type="button" aria-pressed="false">Pengingat: mati</button>
+        <p id="reminder-note" class="reminder-note"></p>
+      </div>
     </div>
 
     <div class="layout">
@@ -42,6 +52,14 @@
 
           <label for="title">Nama tugas</label>
           <input type="text" id="title" maxlength="80" placeholder="Laporan praktikum Basis Data" required>
+
+          <label for="type">Jenis</label>
+          <select id="type">
+            <option value="tugas">Tugas</option>
+            <option value="kuis">Kuis</option>
+            <option value="uts">UTS</option>
+            <option value="uas">UAS</option>
+          </select>
 
           <label for="course">Mata kuliah</label>
           <input type="text" id="course" maxlength="40" placeholder="Basis Data">
@@ -73,6 +91,7 @@
             <button class="chip" data-filter="all" aria-pressed="true">Semua</button>
             <button class="chip" data-filter="active" aria-pressed="false">Belum selesai</button>
             <button class="chip" data-filter="done" aria-pressed="false">Selesai</button>
+            <button class="chip" data-filter="exam" aria-pressed="false">Ujian</button>
           </div>
           <div class="group">
             <label class="sr-only" for="sort">Urutkan</label>
@@ -97,7 +116,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">TARGET. Data tersimpan di browser kamu.</div>
+    <div class="container"><span>TARGET. Data tersimpan di browser kamu, dan di akun Google-mu kalau kamu login.</span> <button id="install-btn" class="btn btn-sm" type="button" hidden>Pasang aplikasi</button></div>
   </footer>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -107,6 +126,8 @@
   <script src="js/utils.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/reminder.js"></script>
+  <script src="js/pwa.js"></script>
   <script src="js/tugas.js"></script>
 </body>
 </html>

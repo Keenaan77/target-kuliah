@@ -56,6 +56,7 @@ function updateStats() {
   const stats = Store.todayStats();
   todayCountEl.textContent = stats.count;
   todayMinutesEl.textContent = stats.minutes;
+  document.getElementById("streak").textContent = Store.streak();
 }
 
 function setStatus(text) {
@@ -104,8 +105,19 @@ function finishSession() {
   running = false;
   beep();
 
+  // Notifikasi kalau tab sedang di background (hanya jika pengingat dinyalakan)
+  if (Reminder.enabled()) {
+    Reminder.notify(
+      mode === "focus" ? "Sesi fokus selesai" : "Istirahat selesai",
+      mode === "focus" ? "Waktunya istirahat sebentar." : "Siap fokus lagi?",
+      "pomodoro"
+    );
+  }
+
   if (mode === "focus") {
-    Store.addSession(settings.focus, taskSelect.value);
+    // Simpan juga nama mata kuliah supaya statistik bisa dikelompokkan
+    const chosen = Store.getTasks().find((t) => t.id === taskSelect.value);
+    Store.addSession(settings.focus, taskSelect.value, chosen ? chosen.course : "");
     focusStreak += 1;
     updateStats();
     const next = focusStreak % 4 === 0 ? "long" : "short";

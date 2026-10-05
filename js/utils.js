@@ -7,11 +7,15 @@
 */
 const Utils = {
   // Tanggal hari ini dalam format "YYYY-MM-DD" (sama dengan format <input type="date">)
-  todayISO() {
-    const d = new Date();
+  // Objek Date -> "YYYY-MM-DD"
+  toISO(d) {
     const m = String(d.getMonth() + 1).padStart(2, "0");
     const day = String(d.getDate()).padStart(2, "0");
     return `${d.getFullYear()}-${m}-${day}`;
+  },
+
+  todayISO() {
+    return this.toISO(new Date());
   },
 
   // Selisih hari dari hari ini ke tanggal tertentu. Negatif = sudah lewat.

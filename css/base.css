@@ -10,11 +10,41 @@
   --margin: #e0525a;
   --ok: #14804f;
   --warn: #a85d00;
+  --surface: #ffffff;      /* latar kartu, form, dan panel */
+  --on-accent: #ffffff;    /* teks di atas warna pekat (biru, merah, hitam) */
+  --edge: var(--ink);      /* warna garis tepi */
+  --shadow: var(--ink);    /* warna bayangan keras */
+  --q-fast: #bcd0ff;
+  --q-skip: #e6e9f2;
+  color-scheme: light;
   --font-head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
 }
 
+/* Mode gelap: hanya mengganti nilai variabel. Aturan CSS lain tidak perlu diubah. */
+:root[data-theme="dark"] {
+  --paper: #0e1322;
+  --grid: #192140;
+  --ink: #e9edfb;
+  --muted: #9ba6cb;
+  --line: #2a3560;
+  --pen: #8fa3ff;
+  --margin: #ff7b84;
+  --ok: #4fd49a;
+  --warn: #ffb454;
+  --surface: #161e38;
+  --on-accent: #0e1322;
+  --edge: #4d5b94;
+  --shadow: #2b3a78;
+  --q-fast: #2d3f86;
+  --q-skip: #242d52;
+  color-scheme: dark;
+}
+
 * { box-sizing: border-box; }
+
+/* Tanpa ini, atribut hidden kalah oleh display milik .btn dan elemen tetap tampil */
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; }
 
@@ -45,12 +75,12 @@ a { color: var(--pen); }
 /* ---------- Navigasi ---------- */
 .nav {
   background: var(--paper);
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 2px solid var(--edge);
   position: sticky; top: 0; z-index: 10;
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
 .logo { font-family: var(--font-head); font-weight: 800; font-size: 1.4rem; color: var(--ink); text-decoration: none; }
-.logo span { background: var(--hl); padding: 0 6px; }
+.logo span { background: var(--hl); color: #101935; padding: 0 6px; }
 .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
 .nav-links a {
   display: block; padding: 8px 12px; color: var(--ink); text-decoration: none; font-weight: 500;
@@ -62,20 +92,23 @@ a { color: var(--pen); }
 /* ---------- Tombol ---------- */
 .btn {
   display: inline-block; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none;
-  padding: 11px 20px; border: 2px solid var(--ink); background: #fff; color: var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
+  padding: 11px 20px; border: 2px solid var(--edge); background: var(--surface); color: var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
   transition: transform .1s, box-shadow .1s;
 }
-.btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
-.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
-.btn-primary { background: var(--pen); color: #fff; }
-.btn-hl { background: var(--hl); }
+.btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--shadow); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--shadow); }
+.btn-primary { background: var(--pen); color: var(--on-accent); }
+.btn-hl { background: var(--hl); color: #101935; }
 
-.btn-sm { padding: 6px 12px; font-size: .88rem; box-shadow: 2px 2px 0 var(--ink); }
+.btn-sm { padding: 6px 12px; font-size: .88rem; box-shadow: 2px 2px 0 var(--shadow); }
+
+/* ---------- Alat di navigasi (tema + login) ---------- */
+.nav-tools { display: flex; align-items: center; gap: 12px; }
 
 /* ---------- Area login ---------- */
 .auth-box { display: flex; align-items: center; gap: 10px; }
-.auth-photo { width: 30px; height: 30px; border: 2px solid var(--ink); object-fit: cover; }
+.auth-photo { width: 30px; height: 30px; border: 2px solid var(--edge); object-fit: cover; }
 .auth-name { font-weight: 700; font-size: .92rem; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .auth-note { font-size: .82rem; color: var(--muted); border: 1.5px dashed var(--muted); padding: 2px 8px; }
 
@@ -83,27 +116,30 @@ a { color: var(--pen); }
 label { display: block; margin: 14px 0 6px; font-weight: 700; font-size: .92rem; }
 input[type="text"], input[type="date"], input[type="number"], select {
   width: 100%; padding: 10px 12px; font: inherit; color: var(--ink);
-  background: #fff; border: 2px solid var(--ink); border-radius: 0;
+  background: var(--surface); border: 2px solid var(--edge); border-radius: 0;
 }
 
 :focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
 
 .chip {
   font: inherit; font-size: .88rem; padding: 6px 14px; cursor: pointer;
-  background: #fff; color: var(--ink); border: 2px solid var(--ink);
+  background: var(--surface); color: var(--ink); border: 2px solid var(--edge);
 }
-.chip[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--on-accent); }
 
 .page-title { padding: 36px 0 20px; }
 .page-title h1 { font-size: clamp(2rem, 6vw, 3rem); }
 .page-title p { margin: 8px 0 0; color: var(--muted); max-width: 52ch; }
 
-.site-footer { border-top: 2px solid var(--ink); background: var(--paper); margin-top: 64px; padding: 20px 0; color: var(--muted); font-size: .9rem; }
+.site-footer .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.site-footer { border-top: 2px solid var(--edge); background: var(--paper); margin-top: 64px; padding: 20px 0; color: var(--muted); font-size: .9rem; }
 
 @media (max-width: 560px) {
   .nav-inner { flex-direction: column; align-items: flex-start; padding: 8px 0 0; gap: 0; }
-  .nav-links a { padding: 8px 10px; }
-  .auth-box { padding-bottom: 8px; }
+  .nav-links { gap: 0; }
+  .nav-links a { padding: 8px 7px; font-size: .92rem; }
+  .nav-links { flex-wrap: wrap; }
+  .nav-tools { padding-bottom: 8px; flex-wrap: wrap; }
   .hero h1 { font-size: 2rem; }
 }
 

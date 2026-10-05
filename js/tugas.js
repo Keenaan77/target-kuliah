@@ -10,6 +10,7 @@
 const form = document.getElementById("task-form");
 const idInput = document.getElementById("task-id");
 const titleInput = document.getElementById("title");
+const typeInput = document.getElementById("type");
 const courseInput = document.getElementById("course");
 const deadlineInput = document.getElementById("deadline");
 const importantInput = document.getElementById("important");
@@ -30,6 +31,9 @@ const viewBtns = document.querySelectorAll("[data-view]");
 let tasks = Store.getTasks();
 let currentFilter = "all";
 let currentView = "list";
+
+/* Label jenis ujian (jenis "tugas" tidak diberi label) */
+const EXAM_LABELS = { kuis: "Kuis", uts: "UTS", uas: "UAS" };
 
 /* Empat kotak matriks Eisenhower */
 const QUADRANTS = [
@@ -57,6 +61,7 @@ form.addEventListener("submit", (event) => {
 
   const data = {
     title: titleInput.value.trim(),
+    type: typeInput.value,
     course: courseInput.value.trim(),
     deadline: deadlineInput.value,
     important: importantInput.checked,
@@ -88,6 +93,7 @@ function startEdit(id) {
   if (!task) return;
   idInput.value = task.id;
   titleInput.value = task.title;
+  typeInput.value = task.type || "tugas";
   courseInput.value = task.course;
   deadlineInput.value = task.deadline;
   importantInput.checked = !!task.important;
@@ -152,6 +158,7 @@ function getVisibleTasks() {
     .filter((t) => {
       if (currentFilter === "active") return !t.done;
       if (currentFilter === "done") return t.done;
+      if (currentFilter === "exam") return (t.type || "tugas") !== "tugas";
       return true;
     })
     .sort((a, b) => a.deadline.localeCompare(b.deadline) * dir);
@@ -176,7 +183,8 @@ function render() {
   const messages = {
     all: "Belum ada tugas. Isi form untuk menambahkan tugas pertama.",
     active: "Tidak ada tugas yang belum selesai.",
-    done: "Belum ada tugas yang selesai."
+    done: "Belum ada tugas yang selesai.",
+    exam: "Belum ada jadwal ujian. Pilih jenis Kuis, UTS, atau UAS saat menambah tugas."
   };
   emptyEl.textContent = messages[currentFilter];
   emptyEl.hidden = visible.length > 0;
@@ -223,11 +231,17 @@ function createTaskItem(task) {
 
   const meta = Utils.el("div", "task-meta");
 
-  // Penanda deadline hanya untuk tugas yang belum selesai
+  const type = task.type || "tugas";
+  if (type !== "tugas") meta.appendChild(Utils.el("span", "tag tag-exam", EXAM_LABELS[type] || type));
+
+  // Penanda deadline hanya untuk yang belum selesai.
+  // Ujian selalu menampilkan hitung mundur, tugas biasa hanya saat sudah dekat.
   if (!task.done) {
     const diff = Utils.daysUntil(task.deadline);
     if (diff < 0) meta.appendChild(Utils.el("span", "tag tag-late", "Terlambat"));
-    else if (diff <= 2) meta.appendChild(Utils.el("span", "tag tag-soon", diff === 0 ? "Hari ini" : `${diff} hari lagi`));
+    else if (type !== "tugas" || diff <= 2) {
+      meta.appendChild(Utils.el("span", "tag tag-soon", diff === 0 ? "Hari ini" : `${diff} hari lagi`));
+    }
   }
   if (task.important) meta.appendChild(Utils.el("span", "tag tag-imp", "Penting"));
   if (task.urgent) meta.appendChild(Utils.el("span", "tag", "Mendesak"));

@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TARGET</title>
   <meta name="description" content="Catat tugas, tentukan prioritas dengan matriks Eisenhower, lalu kerjakan dengan timer Pomodoro.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#004aad">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <script src="/js/theme.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -21,9 +26,10 @@
           <li><a href="/" aria-current="page">Beranda</a></li>
           <li><a href="/tugas">Tugas</a></li>
           <li><a href="/pomodoro">Pomodoro</a></li>
+          <li><a href="/statistik">Statistik</a></li>
         </ul>
       </nav>
-      <div id="auth-box" class="auth-box"></div>
+      <div class="nav-tools"><button id="theme-btn" class="btn btn-sm" type="button">Gelap</button><div id="auth-box" class="auth-box"></div></div>
     </div>
   </header>
 
@@ -52,7 +58,14 @@
         <p><strong id="stat-open">0</strong> tugas belum selesai</p>
         <p><strong id="stat-today">0</strong> sesi fokus hari ini</p>
         <p><strong id="stat-minutes">0</strong> menit fokus sejauh ini</p>
+        <p><strong id="stat-streak">0</strong> hari beruntun</p>
       </div>
+    </section>
+
+    <section class="exams container" aria-labelledby="exam-title">
+      <h2 id="exam-title">Ujian terdekat</h2>
+      <ul id="exam-list" class="exam-list"></ul>
+      <p id="exam-empty" class="exam-empty" hidden></p>
     </section>
 
     <section class="features container">
@@ -70,14 +83,14 @@
 
       <article class="feature">
         <h2>Fokus 25 menit, istirahat 5 menit</h2>
-        <p>Pilih tugas yang mau digarap, tekan mulai, dan biarkan timer bekerja. Setiap sesi yang selesai tercatat, jadi kamu bisa lihat berapa lama sudah benar-benar belajar.</p>
+        <p>Pilih tugas yang mau digarap, tekan mulai, dan biarkan timer bekerja. Setiap sesi yang selesai tercatat, lalu muncul di halaman Statistik lengkap dengan streak belajarmu.</p>
         <a href="/pomodoro">Mulai timer</a>
       </article>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container">TARGET. Data tersimpan di browser kamu, tidak dikirim ke mana pun.</div>
+    <div class="container"><span>TARGET. Data tersimpan di browser kamu, dan di akun Google-mu kalau kamu login.</span> <button id="install-btn" class="btn btn-sm" type="button" hidden>Pasang aplikasi</button></div>
   </footer>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -87,6 +100,8 @@
   <script src="js/utils.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/reminder.js"></script>
+  <script src="js/pwa.js"></script>
   <script src="js/landing.js"></script>
 </body>
 </html>

@@ -114,9 +114,10 @@ const Store = {
     return Array.isArray(sessions) ? sessions : [];
   },
 
-  addSession(minutes, taskId) {
+  // course disimpan langsung di sesi, jadi statistik tetap benar walau tugasnya dihapus
+  addSession(minutes, taskId, course) {
     const sessions = this.getSessions();
-    sessions.push({ date: Utils.todayISO(), minutes, taskId: taskId || null });
+    sessions.push({ date: Utils.todayISO(), minutes, taskId: taskId || null, course: course || "" });
     const ok = this.write(this.SESSIONS_KEY, sessions);
     this.push();
     return ok;
@@ -127,6 +128,59 @@ const Store = {
     return {
       count: today.length,
       minutes: today.reduce((sum, s) => sum + s.minutes, 0)
+    };
+  },
+
+  // Streak = jumlah hari berturut-turut yang punya minimal 1 sesi fokus.
+  // Kalau hari ini belum ada sesi, hitungan mulai dari kemarin
+  // (streak belum putus sampai hari ini berakhir).
+  streak() {
+    const days = new Set(this.getSessions().map((s) => s.date));
+    const d = new Date();
+    if (!days.has(Utils.toISO(d))) d.setDate(d.getDate() - 1);
+    let count = 0;
+    while (days.has(Utils.toISO(d))) {
+      count += 1;
+      d.setDate(d.getDate() - 1);
+    }
+    return count;
+  },
+
+  // Ringkasan 7 hari terakhir (6 hari lalu sampai hari ini)
+  weekStats() {
+    const names = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+    const sessions = this.getSessions();
+    const days = [];
+
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const iso = Utils.toISO(d);
+      const list = sessions.filter((s) => s.date === iso);
+      days.push({
+        date: iso,
+        label: names[d.getDay()],
+        minutes: list.reduce((sum, s) => sum + s.minutes, 0),
+        count: list.length,
+        isToday: i === 0
+      });
+    }
+
+    // Total menit per mata kuliah dalam 7 hari itu
+    const inWeek = new Set(days.map((d) => d.date));
+    const perCourse = {};
+    sessions.filter((s) => inWeek.has(s.date)).forEach((s) => {
+      const name = s.course || "Tanpa mata kuliah";
+      perCourse[name] = (perCourse[name] || 0) + s.minutes;
+    });
+
+    return {
+      days,
+      total: days.reduce((sum, d) => sum + d.minutes, 0),
+      count: days.reduce((sum, d) => sum + d.count, 0),
+      byCourse: Object.entries(perCourse)
+        .map(([course, minutes]) => ({ course, minutes }))
+        .sort((a, b) => b.minutes - a.minutes)
     };
   },
 
