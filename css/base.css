@@ -106,6 +106,13 @@ a { color: var(--pen); }
 /* ---------- Alat di navigasi (tema + login) ---------- */
 .nav-tools { display: flex; align-items: center; gap: 12px; }
 
+/* Penanda timer yang sedang berjalan (muncul di halaman selain Pomodoro) */
+.mini-timer {
+  font-size: .85rem; font-weight: 700; font-variant-numeric: tabular-nums; text-decoration: none;
+  padding: 4px 10px; border: 2px solid #101935; background: var(--hl); color: #101935; white-space: nowrap;
+}
+.mini-timer[data-mode="short"], .mini-timer[data-mode="long"] { background: var(--ok); border-color: var(--ok); color: var(--on-accent); }
+
 /* ---------- Area login ---------- */
 .auth-box { display: flex; align-items: center; gap: 10px; }
 .auth-photo { width: 30px; height: 30px; border: 2px solid var(--edge); object-fit: cover; }

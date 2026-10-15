@@ -72,7 +72,15 @@ const Store = {
       if (snap.exists) {
         const data = snap.data();
         this.write(this.TASKS_KEY, data.tasks || []);
-        this.write(this.SESSIONS_KEY, data.sessions || []);
+
+        // Sesi fokus digabung, bukan ditimpa. Sesi yang baru tercatat di perangkat ini
+        // (misalnya timer habis sebelum login selesai dimuat) belum ada di cloud,
+        // jadi harus dipertahankan lalu diunggah.
+        const cloudSessions = data.sessions || [];
+        const known = new Set(cloudSessions.map((s) => s.id).filter(Boolean));
+        const extra = this.getSessions().filter((s) => s.id && !known.has(s.id));
+        this.write(this.SESSIONS_KEY, cloudSessions.concat(extra));
+        if (extra.length) await this.push();
       } else {
         // Akun baru: unggah data tamu yang sudah ada supaya tidak hilang
         await this.push();
@@ -117,7 +125,7 @@ const Store = {
   // course disimpan langsung di sesi, jadi statistik tetap benar walau tugasnya dihapus
   addSession(minutes, taskId, course) {
     const sessions = this.getSessions();
-    sessions.push({ date: Utils.todayISO(), minutes, taskId: taskId || null, course: course || "" });
+    sessions.push({ id: Utils.uid(), date: Utils.todayISO(), minutes, taskId: taskId || null, course: course || "" });
     const ok = this.write(this.SESSIONS_KEY, sessions);
     this.push();
     return ok;
